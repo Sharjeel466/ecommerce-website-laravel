@@ -3,7 +3,7 @@ use App\Http\Controllers\FrontController;
 
 if (Session::has('user')) {
   $cart_item = FrontController::showUserCart(); 
-  $cart = Session::get('cart');
+  $cart = FrontController::cart();
 }
 @endphp
 
@@ -40,145 +40,136 @@ if (Session::has('user')) {
 </head>
 <body class="productPage">
   <!-- wpf loader Two -->
-{{-- <div id="wpf-loader-two">          
-<div class="wpf-loader-two-inner">
-<span>Loading</span>
-</div>
-</div>  --}}
-<!-- / wpf loader Two -->       
-{{-- SCROLL TOP BUTTON --}}
-{{-- <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a> --}}
-<!-- END SCROLL TOP BUTTON -->
-@php
-// $data = Session::get('cart');
-// $data = json_decode(json_encode($data));
-// debug($data);die();
-@endphp
+  <div id="wpf-loader-two">          
+    <div class="wpf-loader-two-inner">
+      <span>Loading</span>
+    </div>
+  </div> 
+  <!-- / wpf loader Two -->       
+  {{-- SCROLL TOP BUTTON --}}
+  <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+  <!-- END SCROLL TOP BUTTON -->
 
-<!-- Start header section -->
-<header id="aa-header">
-  <!-- start header top  -->
-  <div class="aa-header-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-header-top-area">
-            <!-- start header top left -->
-            <div class="aa-header-top-left">
-              <!-- start language -->
-              <div class="aa-language">
-                <div class="dropdown">
-                  <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <img src="{{ asset('public/front_assets/img/flag/english.jpg') }}" alt="english flag">ENGLISH
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#"><img src="{{ asset('public/front_assets/img/flag/french.jpg') }}" alt="">FRENCH</a></li>
-                    <li><a href="#"><img src="{{ asset('public/front_assets/img/flag/english.jpg') }}" alt="">ENGLISH</a></li>
-                  </ul>
+  <!-- Start header section -->
+  <header id="aa-header">
+    <!-- start header top  -->
+    <div class="aa-header-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="aa-header-top-area">
+              <!-- start header top left -->
+              <div class="aa-header-top-left">
+                <!-- start language -->
+                <div class="aa-language">
+                  <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <img src="{{ asset('public/front_assets/img/flag/english.jpg') }}" alt="english flag">ENGLISH
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a href="#"><img src="{{ asset('public/front_assets/img/flag/french.jpg') }}" alt="">FRENCH</a></li>
+                      <li><a href="#"><img src="{{ asset('public/front_assets/img/flag/english.jpg') }}" alt="">ENGLISH</a></li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <!-- / language -->
+                <!-- / language -->
 
-              <!-- start currency -->
-              <div class="aa-currency">
-                <div class="dropdown">
-                  <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <i class="fa fa-usd"></i>USD
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
-                    <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
-                  </ul>
+                <!-- start currency -->
+                <div class="aa-currency">
+                  <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <i class="fa fa-usd"></i>USD
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
+                      <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
+                    </ul>
+                  </div>
                 </div>
+                <!-- / currency -->
+                <!-- start cellphone -->
+                <div class="cellphone hidden-xs">
+                  <p><span class="fa fa-phone"></span>00-62-658-658</p>
+                </div>
+                <!-- / cellphone -->
               </div>
-              <!-- / currency -->
-              <!-- start cellphone -->
-              <div class="cellphone hidden-xs">
-                <p><span class="fa fa-phone"></span>00-62-658-658</p>
+              <!-- / header top left -->
+              <div class="aa-header-top-right">
+                <ul class="aa-head-top-nav-right">
+                  {{-- <li class="hidden-xs"><a href="{{ url('cart') }}">My Cart</a></li> --}}
+                  {{-- <li class="hidden-xs"><a href="{{ url('checkout') }}">Checkout</a></li> --}}
+                  @if (Session::has('user'))
+                  <li>Welcome, <strong>{{Session::get('user')['name']}}</strong></li>
+                  <li><a href="{{ url('logout-user') }}" data-toggle="modal">|&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+                  @else
+                  <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                  <li><a href="" data-toggle="modal" data-target="#register-modal">Register</a></li>
+                  @endif
+                </ul>
               </div>
-              <!-- / cellphone -->
-            </div>
-            <!-- / header top left -->
-            <div class="aa-header-top-right">
-              <ul class="aa-head-top-nav-right">
-                <li class="hidden-xs"><a href="{{ url('cart') }}">My Cart</a></li>
-                <li class="hidden-xs"><a href="{{ url('checkout') }}">Checkout</a></li>
-                @if (Session::has('user'))
-                <li>Wellcome, <strong>{{Session::get('user')['name']}}</strong></li>
-                <li><a href="{{ url('logout-user') }}" data-toggle="modal">|&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
-                @else
-                <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
-                <li><a href="" data-toggle="modal" data-target="#register-modal">Register</a></li>
-                @endif
-              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- / header top  -->
+    <!-- / header top  -->
 
-  <!-- start header bottom  -->
-  <div class="aa-header-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-header-bottom-area">
-            <!-- logo  -->
-            <div class="aa-logo">
-              <!-- Text based logo -->
-              <a href="{{ url('/') }}">
-                <span class="fa fa-shopping-cart"></span>
-                <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
-              </a>
-              <!-- img based logo -->
-              <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
-            </div>
-            <!-- / logo  -->
-
-            @if (Session::has('user'))
-            <!-- cart box -->
-            <div class="aa-cartbox">
-              <a class="aa-cart-link" href="{{ url('cart') }}">
-                <span class="fa fa-shopping-basket"></span>
-                <span class="aa-cart-title">SHOPPING CART</span>
-                <span class="aa-cart-notify">{{$cart_item}}</span>
-              </a>
-              <div class="aa-cartbox-summary">
-                <ul>
-                  @if ($cart != '')
-                  @foreach ($cart as $list)
-                  <li>
-                    <a class="aa-cartbox-img" href="#"><img style="height: 95px; width: 80px;" src="{{ asset('public/admin_assets/images/products/'.$list['image']) }}" alt="img">
-                    </a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#"><strong>{{$list['product']}}</strong></a></h4>
-                      <p><span>{{$list['product_qty']}}</span> x Rs: <span>{{$list['product_price']}}</span>/-</p>
-                    </div>
-                    <span class="sub-total"><strong>{{$sub_total = $list['product_qty'] * $list['product_price']}}</strong>
-                    </span>
-                  </li>                    
-                  @endforeach
-                  <li>
-                    <span class="aa-cartbox-total-title">Total</span>
-                    <span class="aa-cartbox-total-price" id="total-price">Rs: <span id="total"></span>/-</span>
-                  </li>
-                  @else
-                  <li>
-                    <span>No item in the cart</span>
-                  </li>
-                  @endif
-                </ul>
-                {{-- <a class="aa-cartbox-checkout aa-primary-btn" href="{{ url('checkout/'.$list->customer_id) }}">Checkout</a> --}}
+    <!-- start header bottom  -->
+    <div class="aa-header-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="aa-header-bottom-area">
+              <!-- logo  -->
+              <div class="aa-logo">
+                <!-- Text based logo -->
+                <a href="{{ url('/') }}">
+                  <span class="fa fa-shopping-cart"></span>
+                  <p>Ecommerce<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                </a>
               </div>
-            </div>
-            <!-- / cart box -->
-            @endif
+              <!-- / logo  -->
 
-            <!-- search box -->
+              @if (Session::has('user'))
+              <div class="aa-cartbox">
+                <a class="aa-cart-link" href="{{ url('cart') }}">
+                  <span class="fa fa-shopping-basket"></span>
+                  <span class="aa-cart-title">SHOPPING CART</span>
+                  <span class="aa-cart-notify">{{$cart_item}}</span>
+                </a>
+                {{-- <div class="aa-cartbox-summary">
+                  <ul>
+                    @if ($cart != '')
+                    @foreach ($cart as $list)
+                    <li>
+                      <a class="aa-cartbox-img" href="#"><img style="height: 95px; width: 80px;" src="{{ asset('public/admin_assets/images/products/'.$list['product']['image']) }}" alt="img">
+                      </a>
+                      <div class="aa-cartbox-info">
+                        <h4><a href="#"><strong>{{$list['product']['name']}}</strong></a></h4>
+                        <p><span>{{$list['product_qty']}}</span> x Rs: <span>{{$list['product']['price']}}</span>/-</p>
+                      </div>
+                      <span class="sub-total"><strong>{{$sub_total = $list['product_qty'] * $list['product']['price']}}</strong>
+                      </span>
+                    </li>                    
+                    @endforeach
+                    <li>
+                      <span class="aa-cartbox-total-title">Total</span>
+                      <span class="aa-cartbox-total-price" id="total-price">Rs: <span id="total"></span>/-</span>
+                    </li>
+                    @else
+                    <li>
+                      <span>No item in the cart</span>
+                    </li>
+                    @endif
+                  </ul>
+                  <a class="aa-cartbox-checkout aa-primary-btn" href="{{ url('checkout') }}">Checkout</a>
+                </div> --}}
+              </div>
+              @endif
+
+              <!-- search box -->
             {{-- <div class="aa-search-box">
               <form action="">
                 <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
@@ -212,18 +203,14 @@ if (Session::has('user')) {
           <!-- Left nav -->
           <ul class="nav navbar-nav">
             <li><a href="{{ url('/') }}"><strong>Home</strong></a></li>
-            <li><a href="{{ url('product_list') }}"><strong>All Products</strong></a></li>
-{{--  @foreach ($category as $list)
-<li><a href="#{{$list->id}}">{{$list->name}}</a></li>
-@endforeach --}}
-</ul>
-</div><!--/.nav-collapse -->
-</div>
-</div>       
-</div>
+            <li><a href="{{ url('product_list') }}">All Products</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>       
+  </div>
 </section>
-<!-- / menu -->
-{{-- @include('front/layouts/partials/index') --}}
+
 @yield('container')
 
 <!-- footer -->  
@@ -385,9 +372,9 @@ if (Session::has('user')) {
 <script src="{{asset('public/front_assets/js/custom.js')}}"></script> 
 
 @if (Session::has('user'))
-  <script>
-    toastr.success('You are logged in to our Website');
-  </script>
+<script>
+  toastr.success('You are logged in to our Website');
+</script>
 @endif
 </body>
 </html>

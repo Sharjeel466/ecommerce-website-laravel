@@ -11,7 +11,7 @@
               <h3>Category</h3>
               <ul class="aa-catg-nav">
                 @foreach ($category as $list)
-                <li><a href="{{ url('category/'.$list->id) }}">{{$list->name}}</a></li>
+                <li><a href="{{ url('product_list/'.$list->id) }}">{{$list->name}}</a></li>
                 @endforeach
               </ul>
             </div>
@@ -36,7 +36,7 @@
       </div>
       @endforeach
       @else
-      <div class="col-md-12">
+      <div class="col-md-3">
         No Products From This Category.
       </div>
       @endif

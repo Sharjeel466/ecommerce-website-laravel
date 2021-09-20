@@ -45,12 +45,12 @@ class FrontController extends Controller
     {
 
         $password = $req->post('password');
-        $hash_papssword = Hash::make($password);
+        $hash_password = Hash::make($password);
 
         $user = Customer::create([
             'name' => $req->name,
             'email' => $req->email,
-            'password' => $hash_papssword,
+            'password' => $hash_password,
             'address' => $req->address,
             'phone_number' => $req->number,
         ]);
@@ -86,57 +86,61 @@ class FrontController extends Controller
     public function addToCart(Request $req, $product_id)
     {
         $product = Product::find($product_id);
+        $cart = Cart::where('product_id', $product_id)->first();
         $customer_id = $req->session()->get('user')['id'];
-        $cart = session()->get('cart');
 
-        if (!$cart) {
-            $cart = [
-                $product_id =>[
-                    'product_id' => $product_id,
-                    'customer' => $customer_id,
-                    'product'  => $product->name,
-                    'product_price'  => $product->price,
-                    'product_qty' => $req->product_qty,
-                    'image' => $product->image,
-                ] 
-            ];
+        $shopping_cart = session()->get('cart');
 
-            session()->put('cart', $cart);
-            return redirect('/');
-        }
-
-        if (isset($cart[$product_id])) {
-
-            $cart[$product_id]['product_qty'] = $req->product_qty;
-
-            session()->put('cart', $cart);
-            return redirect('/');
-        }
-
-        $cart[$product_id] = [
-            'product_id' => $product_id,
-            'customer' => $customer_id,
-            'product'  => $product->name,
-            'product_price'  => $product->price,
-            'product_qty' => $req->product_qty,
-            'image' => $product->image,
+        $shopping_cart[$product_id] = [
+            $product_id
         ];
+        session()->put('cart', $shopping_cart);
 
-        $req->session()->put('cart', $cart);
+        if ($cart != '') {
 
-        return redirect('/');
+            $cart->product_qty = $req->product_qty;
+            $cart->update();
 
+            return redirect('/');
+        }
+        else{
+
+            Cart::create([
+                'customer_id' => $customer_id,
+                'product_id'  => $product_id,
+                'product_qty' => $req->product_qty,
+            ]);
+            return redirect('/');
+        }
+
+    }
+
+    public function updateCart(Request $req, $product_id)
+    {
+        $cart = Cart::where('product_id', $product_id)->first();
+        $cart->product_qty =$req->product_qty; 
+        $cart->update();
+        return response()->json($cart);
+    }
+
+    public function cartRemove(Request $req)
+    {
+        $cart = Cart::where('product_id', $req->product_id)->first();
+        $cart->delete();
+        return redirect('cart');
     }
 
     public static function showUserCart()
     {
-        $cart = Session::get('cart');
+        // $user_data = Session::get('user')['id'];
+        // $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
+        $cart = session()->get('cart');
         if ($cart != '') {
             $cart = count($cart);
         }
         else{
             $cart = 0;
-        }
+        }   
         return $cart;
     }
 
@@ -150,10 +154,11 @@ class FrontController extends Controller
     public function checkout(Request $req)
     {
         if ($req->isMethod('post')) {
+            $data = $req->all();
 
             date_default_timezone_set('Asia/Karachi');
             $date =  date("Y-m-d | h:i:s A") ;
-            
+
             $order = Order::create([
                 'customer_id'    => $req->cust_id,
                 'date'           => $date,
@@ -171,9 +176,11 @@ class FrontController extends Controller
 
             $req->session()->forget('cart');
 
-            return redirect('/');
+            return redirect('thankyou');
         }
-        $cart = Session::get('cart');
+        $user_data = Session::get('user')['id'];
+        $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
+
         return view('front.layouts.partials.checkout', compact('cart'));
     }
 
@@ -182,23 +189,22 @@ class FrontController extends Controller
         return view('front.layouts.partials.cart');
     }
 
-    public function productList()
+    public function productList($category_id=null)
     {
         $categories = Category::all();
-        $product = Product::with('category')->where(['category_id' => $categories[0]['id']])->get();
+        if ($category_id != null) {
+            $product = Product::with('category')->where(['category_id' => $category_id])->get();
+        }
+        else{
+            $product = Product::with('category')->where(['category_id' => $categories[0]['id']])->get();
+        }
         $category = Category::all();
-        // $product = json_decode(json_encode($product));
-        // debug($product);die();
         return view('front.layouts.partials.product_list', compact('product', 'category'));
     }
 
-    public function category(Request $req, $category_id)
+    public function thankyou()
     {
-        $category = Category::all();
-        $product = Product::where(['category_id'=>$category_id])->get();
-        // $product = json_decode(json_encode($product));
-        // debug($product);die();
-        return view('front.layouts.partials.product_list', compact('product', 'category'));
+        return view('front.layouts.partials.thankyou');
     }
 
 }

@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/'                                 , 'FrontController@index');
 Route::get('product-details/{id}'              , 'FrontController@productDetails');
 Route::post('add-to-cart/{product_id}'         , 'FrontController@addToCart');
+Route::post('cart-remove'                      , 'FrontController@cartRemove');
 Route::match(['get', 'post'],'checkout/'       , 'FrontController@checkout')->name('checkout');
 Route::get('cart'                              , 'FrontController@cartDetails');
-Route::get('product_list'                      , 'FrontController@productList');
-Route::get('category/{category_id}'            , 'FrontController@category');
+Route::post('update-cart/{product_id}'         , 'FrontController@updateCart');
+Route::get('product_list/{category_id?}'       , 'FrontController@productList');
+Route::get('thankyou'                          , 'FrontController@thankyou');
+// Route::get('category/{category_id}'            , 'FrontController@category');
 
 Route::post('register-user'                    , 'FrontController@registerUser');
 Route::post('login-user'                       , 'FrontController@loginUser');

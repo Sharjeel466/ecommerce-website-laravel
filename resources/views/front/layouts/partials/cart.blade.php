@@ -5,8 +5,7 @@ use App\Http\Controllers\FrontController;
 
 if (Session::has('user')) {
   $cart_items = FrontController::showUserCart(); 
-  $cart = Session::get('cart');
-  // debug($cart);die();
+  $cart = FrontController::cart();
 }
 @endphp
 
@@ -32,15 +31,19 @@ if (Session::has('user')) {
                 </thead>
                 <tbody>
                   @if (Session::has('user'))
-                  @php $n = 1; @endphp
                   @foreach ($cart as $list)
                   <tr>
-                    <td>@php echo $n++; @endphp</td>
-                    <td><img src="{{ asset('public/admin_assets/images/products/'.$list['image']) }}" alt="img"></td>
-                    <td>{{$list['product']}}</td>
-                    <td>Rs: <span id="product-price-{{$list['product_id']}}">{{$list['product_price']}}</span>/-</td>
-                    <td id="product-quantity-{{$list['product_id']}}">{{$list['product_qty']}}</td>
-                    <td>Rs: <span class="sub" id="sub-{{$list['product_id']}}">{{$list['product_qty'] * $list['product_price']}}</span>/-</td>
+                    <form action="{{ url('cart-remove') }}" method="post">
+                      @csrf
+                      <input type="hidden" name="product_id" value="{{$list['product_id']}}">
+                      <td><input type="submit" value="remove" class="btn btn-sm btn-danger"></td>
+                    </form>
+                    <td><img src="{{ asset('public/admin_assets/images/products/'.$list['product']['image']) }}" alt="img"></td>
+                    <td>{{$list['product']['name']}}</td>
+                    <td>Rs: <span id="product-price-{{$list['product_id']}}">{{$list['product']['price']}}</span>/-</td>
+                    {{-- <td id="product-quantity-{{$list['product_id']}}">{{$list['product_qty']}}</td> --}}
+                    <td><input id="product-quantity-{{$list['product_id']}}" onchange="updateProductQty({{$list['product_id']}})" class="aa-cart-quantity" type="number" value="{{$list['product_qty']}}"></td>
+                    <td>Rs: <span class="sub" id="sub-{{$list['product_id']}}">{{$list['product_qty'] * $list['product']['price']}}</span>/-</td>
                   </tr>
                   @endforeach 
                   @endif

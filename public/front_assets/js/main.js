@@ -39,36 +39,36 @@ $(document).ready(function() {
 
 });
 
-// function updateProductQty(product_id){
-// 	var product_qty = $('#product-quantity-'+product_id).val();
-// 	var product_price = $('#product-price-'+product_id).text();
-// 	var sub_total = product_qty * product_price;
-// 	var sub = $('#sub-'+product_id).text(sub_total);
+function updateProductQty(product_id){
+	var product_qty = $('#product-quantity-'+product_id).val();
+	var product_price = $('#product-price-'+product_id).text();
+	var sub_total = product_qty * product_price;
+	var sub = $('#sub-'+product_id).text(sub_total);
+	
+	$.ajax({
+		url : 'update-cart/'+product_id,
+		type: 'post',
+		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+		data: {
+			_token: $('#token').val(),
+			product_id: product_id,
+			product_qty: product_qty
+		},
+		success:function(data){
+			// console.log(data)
+		},
+		error:function(a,b,c){
+			console.log(b)
+		}
+	});
 
-// 	$.ajax({
-// 		url : 'update-cart/'+product_id,
-// 		type: 'post',
-// 		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-// 		data: {
-// 			_token: $('#token').val(),
-// 			product_id: product_id,
-// 			product_qty: product_qty
-// 		},
-// 		success:function(data){
-// 			console.log(data)
-// 		},
-// 		error:function(a,b,c){
-// 			console.log(b)
-// 		}
-// 	});
-
-// 	var total = 0;
-// 	$('.sub').each(function() {
-// 		total += parseInt($(this).text());
-// 		// console.log(total)
-// 	});
-// 	$('#tot').text(total);
-// }
+	var total = 0;
+	$('.sub').each(function() {
+		total += parseInt($(this).text());
+		// console.log(total)
+	});
+	$('#tot').text(total);
+}
 
 
 function login() {
