@@ -59,11 +59,7 @@
 							@foreach ($related_product as $list)
 							<li>
 								<figure>
-									@if (Session::has('user'))
 									<a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" alt="polo shirt img"></a>
-									@else
-									<a class="aa-product-img"><img onclick="login()" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" alt="polo shirt img"></a>
-									@endif
 									<figcaption>
 										<h4 class="aa-product-title"><a href="#">{{$list->name}}</a></h4>
 										<span class="aa-product-price">Rs: {{$list->price}}/-</span>

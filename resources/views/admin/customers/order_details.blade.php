@@ -12,30 +12,24 @@
 			<table class="table table-borderless table-data3">
 				<thead>
 					<tr>
-						<th>Orders</th>
-						<th>Date</th>
-						<th>Total Amount</th>
-						<th>Payment Method</th>
-						<th>Orders Details</th>
+						<th>#</th>
+						<th>Product Name</th>
+						<th>Product Image</th>
+						<th>Product Price</th>
+						<th>Product Quantity</th>
 					</tr>
 				</thead>
-				<div class="card">
-					<div class="card-body">
-						<label>Customer Name:</label>&nbsp;&nbsp;
-						<strong>{{$customer[0]->customer->name}}</strong>
-					</div>
-				</div>
 				@php
 				$n = 1;
 				@endphp
 				<tbody>
-					@foreach ($customer as $key => $list)
+					@foreach ($order_details as $key => $list)
 					<tr>
 						<td>{{$n++}}</td>
-						<td>{{$list->date}}</td>
-						<td>{{$list->total_amount}}</td>
-						<td>{{$list->payment_method}}</td>
-						<td><a class="btn btn-sm btn-info" href="{{ url('admin/order-detail/'.$list->id) }}">Details</a></td>
+						<td>{{$list->product->name}}</td>
+						<td><img style="width: 50px; height: 50px" class="img-fluid" src="{{asset('public/admin_assets/images/products/'.$list->product->image)}}"/></td>
+						<td>{{$list->product->price}}</td>
+						<td>{{$list->product_qty}}</td>
 					</tr>
 					@endforeach
 				</tbody>

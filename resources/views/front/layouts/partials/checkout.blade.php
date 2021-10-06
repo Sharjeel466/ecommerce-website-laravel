@@ -35,7 +35,7 @@ if (Session::has('user')) {
                     <tr>
                       <input type="hidden" name="product_id[]" value="{{$list->product_id}}">
                       <input type="hidden" name="product_qty[]" value="{{$list->product_qty}}">
-                      <td>{{$list->product->name}} <strong> x  {{$list->product_qty}}</strong></td>
+                      <td>{{$list->product->name}} &nbsp;&nbsp;x <strong> {{$list->product_qty}}</strong></td>
                       <td>Rs: {{$list->product->price}}/-</td>
                       <td>Rs: <span class="sub">{{$sub = $list->product->price * $list->product_qty}}</span>/-</td>
                     </tr>

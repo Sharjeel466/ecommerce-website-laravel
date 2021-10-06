@@ -44,7 +44,8 @@ Route::prefix('admin')->group(function(){
         Route::post('delete-category'                           , 'CategoryController@deleteCategory');
 
         Route::get('customer'                                   , 'CustomerController@index');
-        // Route::get('customer-detail/{customer_id}'              , 'CustomerController@customerDetail');
+        Route::get('customer-detail/{customer_id}'              , 'CustomerController@customerDetail');
+        Route::get('order-detail/{order_id}'                    , 'CustomerController@orderDetail');
 
 
         Route::get('logout'                                     , 'AdminController@logout');

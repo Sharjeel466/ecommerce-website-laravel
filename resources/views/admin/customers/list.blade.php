@@ -17,7 +17,7 @@
 						<th>Email</th>
 						<th>Address</th>
 						<th>Phone Number</th>
-						{{-- <th>Action</th> --}}
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,7 +31,11 @@
 						<td>{{$list->email}}</td>
 						<td>{{$list->address}}</td>
 						<td>{{$list->phone_number}}</td>
-						{{-- <td><a class="btn btn-sm btn-warning" href="{{ url('admin/customer-detail/'.$list->id) }}">View</a></td> --}}
+						@if ($list['order'] == '')
+						<td>No Orders Yet</td>
+						@else
+						<td><a class="btn btn-sm btn-warning" href="{{ url('admin/customer-detail/'.$list->id) }}">View</a></td>
+						@endif
 					</tr>
 					@endforeach
 				</tbody>

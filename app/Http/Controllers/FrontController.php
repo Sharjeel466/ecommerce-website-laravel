@@ -86,21 +86,22 @@ class FrontController extends Controller
     public function addToCart(Request $req, $product_id)
     {
         $product = Product::find($product_id);
-        $cart = Cart::where('product_id', $product_id)->first();
         $customer_id = $req->session()->get('user')['id'];
+        $cart = Cart::where('product_id', $product_id)->where('customer_id', $customer_id)->first();
+        // debug($cart);die();
 
-        $shopping_cart = session()->get('cart');
+        // $shopping_cart = session()->get('cart');
 
-        $shopping_cart[$product_id] = [
-            $product_id
-        ];
-        session()->put('cart', $shopping_cart);
+        // $shopping_cart[$product_id] = [
+        //     $product_id
+        // ];
+        // session()->put('cart', $shopping_cart);
 
         if ($cart != '') {
 
             $cart->product_qty = $req->product_qty;
             $cart->update();
-
+            $req->session()->flash('msg', 'Product Quantity Updated');
             return redirect('/');
         }
         else{
@@ -110,6 +111,7 @@ class FrontController extends Controller
                 'product_id'  => $product_id,
                 'product_qty' => $req->product_qty,
             ]);
+            $req->session()->flash('msg', 'Product Added to Cart');
             return redirect('/');
         }
 
@@ -117,30 +119,35 @@ class FrontController extends Controller
 
     public function updateCart(Request $req, $product_id)
     {
-        $cart = Cart::where('product_id', $product_id)->first();
+        $customer_id = $req->session()->get('user')['id'];
+        $cart = Cart::where('product_id', $product_id)->where('customer_id', $customer_id)->first();
         $cart->product_qty =$req->product_qty; 
         $cart->update();
+        $req->session()->flash('msg', 'Product Quantity Updated');
         return response()->json($cart);
     }
 
     public function cartRemove(Request $req)
     {
-        $cart = Cart::where('product_id', $req->product_id)->first();
+        $customer_id = $req->session()->get('user')['id'];
+        $cart = Cart::where('product_id', $req->product_id)->where('customer_id', $customer_id)->first();
         $cart->delete();
+        $req->session()->flash('msg', 'Product Removed from Cart');
         return redirect('cart');
     }
 
     public static function showUserCart()
     {
-        // $user_data = Session::get('user')['id'];
-        // $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
-        $cart = session()->get('cart');
+        $user_data = Session::get('user')['id'];
+        $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
+        // $cart = session()->get('cart');
+        
         if ($cart != '') {
             $cart = count($cart);
         }
         else{
             $cart = 0;
-        }   
+        }
         return $cart;
     }
 
@@ -174,7 +181,9 @@ class FrontController extends Controller
                 ]);                
             }
 
-            $req->session()->forget('cart');
+            Cart::where('customer_id', $req->cust_id)->delete();
+
+            // $req->session()->forget('cart');
 
             return redirect('thankyou');
         }

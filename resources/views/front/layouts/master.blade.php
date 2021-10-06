@@ -5,6 +5,9 @@ if (Session::has('user')) {
   $cart_item = FrontController::showUserCart(); 
   $cart = FrontController::cart();
 }
+else{
+  $cart_item = 0;
+}
 @endphp
 
 <!DOCTYPE html>
@@ -132,42 +135,16 @@ if (Session::has('user')) {
               </div>
               <!-- / logo  -->
 
-              @if (Session::has('user'))
+              {{-- @if (Session::has('user')) --}}
               <div class="aa-cartbox">
                 <a class="aa-cart-link" href="{{ url('cart') }}">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
                   <span class="aa-cart-notify">{{$cart_item}}</span>
                 </a>
-                {{-- <div class="aa-cartbox-summary">
-                  <ul>
-                    @if ($cart != '')
-                    @foreach ($cart as $list)
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img style="height: 95px; width: 80px;" src="{{ asset('public/admin_assets/images/products/'.$list['product']['image']) }}" alt="img">
-                      </a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#"><strong>{{$list['product']['name']}}</strong></a></h4>
-                        <p><span>{{$list['product_qty']}}</span> x Rs: <span>{{$list['product']['price']}}</span>/-</p>
-                      </div>
-                      <span class="sub-total"><strong>{{$sub_total = $list['product_qty'] * $list['product']['price']}}</strong>
-                      </span>
-                    </li>                    
-                    @endforeach
-                    <li>
-                      <span class="aa-cartbox-total-title">Total</span>
-                      <span class="aa-cartbox-total-price" id="total-price">Rs: <span id="total"></span>/-</span>
-                    </li>
-                    @else
-                    <li>
-                      <span>No item in the cart</span>
-                    </li>
-                    @endif
-                  </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="{{ url('checkout') }}">Checkout</a>
-                </div> --}}
+                
               </div>
-              @endif
+              {{-- @endif --}}
 
               <!-- search box -->
             {{-- <div class="aa-search-box">
@@ -202,8 +179,7 @@ if (Session::has('user')) {
         <div class="navbar-collapse collapse">
           <!-- Left nav -->
           <ul class="nav navbar-nav">
-            <li><a href="{{ url('/') }}"><strong>Home</strong></a></li>
-            <li><a href="{{ url('product_list') }}">All Products</a></li>
+            <li><a href="{{ url('product_list') }}">Products</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

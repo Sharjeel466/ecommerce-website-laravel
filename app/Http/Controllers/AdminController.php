@@ -14,12 +14,10 @@ class AdminController extends Controller
 
     public function index(Request $req)
     {
-    // Auth::user('admin');
         if ($req->session()->has('admin')) {
             return redirect('admin/dashboard');
         }
         else{
-            // echo "esle";die();
             return view('admin.auth.login');
         }
     }
@@ -34,7 +32,6 @@ class AdminController extends Controller
             if ($data) {
                 if (Hash::check($password, $data['password'])) {
                     $req->session()->put('admin', $data);
-                    // $req->session()->put('admin_id', $data->id);
                     return redirect('admin/dashboard');
                 }
                 else{
@@ -47,7 +44,6 @@ class AdminController extends Controller
                 return redirect('admin');
             }
         }
-        // $auth = Auth::user('admin');
         return view('admin.auth.login');
     }
 

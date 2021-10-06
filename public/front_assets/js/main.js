@@ -69,8 +69,3 @@ function updateProductQty(product_id){
 	});
 	$('#tot').text(total);
 }
-
-
-function login() {
-	alert('login To Buy Products.')
-}

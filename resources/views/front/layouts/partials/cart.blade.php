@@ -9,6 +9,15 @@ if (Session::has('user')) {
 }
 @endphp
 
+@if(session()->has('msg'))
+<div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+  {{session('msg')}}  
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div> 
+@endif
+
 <!-- Cart view section -->
 <section id="cart-view">
   <div class="container">

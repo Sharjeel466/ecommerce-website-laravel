@@ -68,14 +68,14 @@
                         </li>
                         <li class="@yield('category_select')">
                             <a href="{{ url('admin/category') }}">
-                                <i class="fas fa-tachometer-alt"></i>Categories
+                                <i class="fas fa-bars"></i>Categories
                             </a>
                         </li>
-                        {{-- <li class="@yield('customer_select')">
+                        <li class="@yield('customer_select')">
                             <a href="{{ url('admin/customer') }}">
-                                <i class="fas fa-tachometer-alt"></i>Customers
+                                <i class="fas fa-users"></i>Customers
                             </a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -98,13 +98,13 @@
                                         </div>
                                         <div class="account-dropdown js-dropdown">
 
-                                            <div class="account-dropdown__body">
+                                            {{-- <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
                                                     <a href="#">
                                                         <i class="zmdi zmdi-account"></i>Account
                                                     </a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="account-dropdown__footer">
                                                 <a href="{{url('admin/logout')}}">
                                                     <i class="zmdi zmdi-power"></i>Logout

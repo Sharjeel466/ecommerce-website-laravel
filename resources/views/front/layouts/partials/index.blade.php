@@ -1,6 +1,15 @@
 @extends('front.layouts.master')
 @section('container')
 <!-- Start slider -->
+{{-- @if(session()->has('msg'))
+<div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+	{{session('msg')}}  
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	</button>
+</div> 
+@endif --}}
+
 <section id="aa-slider">
 	<div class="aa-slider-area">
 		<div id="sequence" class="seq">
@@ -39,11 +48,7 @@
 				@foreach ($product as $list)
 				<li style="margin-top: 50px;">
 					<figure>
-						@if (Session::has('user'))
 						<a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" alt="polo shirt img"></a>
-						@else
-						<a class="aa-product-img"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" onclick="login()" alt="polo shirt img"></a>
-						@endif
 						<figcaption>
 							<h4 class="aa-product-title">{{$list->name}}</h4>
 							<span class="aa-product-price">Rs : {{$list->price}}/-</span>
