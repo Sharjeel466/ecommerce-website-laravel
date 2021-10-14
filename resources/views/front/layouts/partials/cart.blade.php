@@ -3,20 +3,20 @@
 @php
 use App\Http\Controllers\FrontController;
 
-if (Session::has('user')) {
+if (Auth::user()) {
   $cart_items = FrontController::showUserCart(); 
   $cart = FrontController::cart();
 }
 @endphp
 
-@if(session()->has('msg'))
+{{-- @if(session()->has('msg'))
 <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
   {{session('msg')}}  
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">×</span>
   </button>
 </div> 
-@endif
+@endif --}}
 
 <!-- Cart view section -->
 <section id="cart-view">
@@ -39,7 +39,7 @@ if (Session::has('user')) {
                   </tr>
                 </thead>
                 <tbody>
-                  @if (Session::has('user'))
+                  @if (Auth::user())
                   @foreach ($cart as $list)
                   <tr>
                     <form action="{{ url('cart-remove') }}" method="post">

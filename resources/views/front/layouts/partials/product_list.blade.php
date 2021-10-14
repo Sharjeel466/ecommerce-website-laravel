@@ -22,7 +22,7 @@
       @foreach ($product as $list)
       <div class="col-md-3" style="margin-top: 50px;">
         <li>
-          @if (Session::has('user'))
+          @if (Auth::user())
           <a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}"></a>
           @else
           <a class="aa-product-img"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}"></a>

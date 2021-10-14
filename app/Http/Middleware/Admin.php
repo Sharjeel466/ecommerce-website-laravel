@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 use Illuminate\Http\Request;
 
 class Admin
@@ -16,12 +17,9 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->session()->has('admin')) {
-            // echo "string";die();
-        }
-        else{
-            $request->session()->flash('error','Access Denied');
-            return redirect('admin');
+        // debug(Auth::user()->role->name);die();
+        if (Auth::user()->role->name == 'customer') {
+            return redirect('/');
         }
         return $next($request);
     }

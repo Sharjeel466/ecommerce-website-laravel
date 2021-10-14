@@ -22,7 +22,7 @@
 				<div class="card">
 					<div class="card-body">
 						<label>Customer Name:</label>&nbsp;&nbsp;
-						<strong>{{$customer[0]->customer->name}}</strong>
+						<strong>{{$customer[0]->user->name}}</strong>
 					</div>
 				</div>
 				@php

@@ -3,17 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Customer;
+use App\User;
 use App\OrderDetails;
 use App\Product;
 
 class Order extends Model
 {
-    protected $fillable = ['customer_id', 'date', 'payment_method', 'total_amount'];
+    protected $fillable = ['user_id', 'date', 'payment_method', 'total_amount'];
 
-    public function customer()
+    public function user()
     {
-        return $this->belongsTo('App\Customer');
+        return $this->belongsTo('App\User');
     }
 
 }

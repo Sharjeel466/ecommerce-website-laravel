@@ -4,8 +4,8 @@
 @php
 use App\Http\Controllers\FrontController;
 
-if (Session::has('user')) {
-  $customer_id = Session::get('user')['id'];
+if (Auth::user()) {
+  $customer_id = Auth::user()->id;
 }
 @endphp
 

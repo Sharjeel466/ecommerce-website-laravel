@@ -11,12 +11,13 @@ use App\Order;
 use App\OrderDetails;
 use Hash;
 use Session;
+use Auth;
 
 class FrontController extends Controller
 {
     public function index(Request $req)
     {
-        if ($req->session()->has('user')) {
+        if (Auth::user()) {
 
             $product = Product::with('category')->take(4)->inRandomOrder()->get();
             $category = Category::all();
@@ -41,52 +42,52 @@ class FrontController extends Controller
         return view('front.layouts.partials.product_view', compact('product', 'related_product'));
     }
 
-    public function registerUser(Request $req)
-    {
+    // public function registerUser(Request $req)
+    // {
 
-        $password = $req->post('password');
-        $hash_password = Hash::make($password);
+    //     $password = $req->post('password');
+    //     $hash_password = Hash::make($password);
 
-        $user = Customer::create([
-            'name' => $req->name,
-            'email' => $req->email,
-            'password' => $hash_password,
-            'address' => $req->address,
-            'phone_number' => $req->number,
-        ]);
+    //     $user = Customer::create([
+    //         'name' => $req->name,
+    //         'email' => $req->email,
+    //         'password' => $hash_password,
+    //         'address' => $req->address,
+    //         'phone_number' => $req->number,
+    //     ]);
 
-        return redirect('/');
-    }
+    //     return redirect('/');
+    // }
 
-    public function loginUser(Request $req)
-    {
-        $data = $req->all();
-        $customer = Customer::where(['email'=>$data['email']])->first();
+    // public function loginUser(Request $req)
+    // {
+    //     $data = $req->all();
+    //     $customer = Customer::where(['email'=>$data['email']])->first();
 
-        if ($customer) {
-            if (Hash::check($req->post('password'), $customer['password'])) {
-                $req->session()->put('user', $customer);
-                return redirect('/');
-            }
-            else{
-                return redirect('/');
-            }
-        }
-        else{
-            return redirect('/');
-        }
-    }
+    //     if ($customer) {
+    //         if (Hash::check($req->post('password'), $customer['password'])) {
+    //             $req->session()->put('user', $customer);
+    //             return redirect('/');
+    //         }
+    //         else{
+    //             return redirect('/');
+    //         }
+    //     }
+    //     else{
+    //         return redirect('/');
+    //     }
+    // }
 
-    public function logOut(Request $req)
-    {
-        $req->session()->forget('user');
-        return redirect('/');  
-    }
+    // public function logOut(Request $req)
+    // {
+    //     $req->session()->forget('user');
+    //     return redirect('/');  
+    // }
 
     public function addToCart(Request $req, $product_id)
     {
         $product = Product::find($product_id);
-        $customer_id = $req->session()->get('user')['id'];
+        $customer_id = Auth::user()->id;
         $cart = Cart::where('product_id', $product_id)->where('customer_id', $customer_id)->first();
         // debug($cart);die();
 
@@ -119,7 +120,7 @@ class FrontController extends Controller
 
     public function updateCart(Request $req, $product_id)
     {
-        $customer_id = $req->session()->get('user')['id'];
+        $customer_id = Auth::user()->id;
         $cart = Cart::where('product_id', $product_id)->where('customer_id', $customer_id)->first();
         $cart->product_qty =$req->product_qty; 
         $cart->update();
@@ -129,7 +130,7 @@ class FrontController extends Controller
 
     public function cartRemove(Request $req)
     {
-        $customer_id = $req->session()->get('user')['id'];
+        $customer_id = Auth::user()->id;
         $cart = Cart::where('product_id', $req->product_id)->where('customer_id', $customer_id)->first();
         $cart->delete();
         $req->session()->flash('msg', 'Product Removed from Cart');
@@ -138,7 +139,7 @@ class FrontController extends Controller
 
     public static function showUserCart()
     {
-        $user_data = Session::get('user')['id'];
+        $user_data = Auth::user()->id;
         $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
         // $cart = session()->get('cart');
         
@@ -153,7 +154,7 @@ class FrontController extends Controller
 
     public static function cart()
     {
-        $user_data = Session::get('user')['id'];
+        $user_data = Auth::user()->id;
         $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
         return $cart;
     }
@@ -162,12 +163,14 @@ class FrontController extends Controller
     {
         if ($req->isMethod('post')) {
             $data = $req->all();
+            
+            $product = Product::where('id', $data['product_id'])->first();
 
             date_default_timezone_set('Asia/Karachi');
             $date =  date("Y-m-d | h:i:s A") ;
-
+            // debug($data);die();
             $order = Order::create([
-                'customer_id'    => $req->cust_id,
+                'user_id'        => $data['cust_id'],
                 'date'           => $date,
                 'payment_method' => $req->payment,
                 'total_amount'   => $req->total_amt
@@ -175,9 +178,10 @@ class FrontController extends Controller
 
             foreach ($req->product_id as $key => $value) {
                 OrderDetails::create([
-                    'order_id'    => $order['id'],
-                    'product_id'  => $value,
-                    'product_qty' => $req->product_qty[$key]
+                    'order_id'      => $order['id'],
+                    'product_id'    => $value,
+                    'product_price' => $product['price'],
+                    'product_qty'   => $req->product_qty[$key]
                 ]);                
             }
 
@@ -187,7 +191,7 @@ class FrontController extends Controller
 
             return redirect('thankyou');
         }
-        $user_data = Session::get('user')['id'];
+        $user_data = Auth::user()->id;
         $cart = Cart::with('product')->where(['customer_id'=>$user_data])->get();
 
         return view('front.layouts.partials.checkout', compact('cart'));

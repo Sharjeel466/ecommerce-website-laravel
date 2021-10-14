@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customer;
+use App\User;
 use App\OrderDetails;
 use App\Order;
 
@@ -11,7 +11,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customer = Customer::with('order')->get();
+        $customer = User::with('order')->get();
         // $customer = json_decode(json_encode($customer));
         // debug($customer);die();
         return view('admin.customers.list', compact('customer'));
@@ -19,7 +19,7 @@ class CustomerController extends Controller
 
     public function customerDetail(Request $req, $customer_id)
     {
-        $customer = Order::with('customer')->where('customer_id', $customer_id)->get();
+        $customer = Order::with('user')->where('user_id', $customer_id)->get();
 
         // $customer = json_decode(json_encode($customer));
         // debug($customer);

@@ -15,8 +15,6 @@
 						<th>#</th>
 						<th>Name</th>
 						<th>Email</th>
-						<th>Address</th>
-						<th>Phone Number</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -29,8 +27,6 @@
 						<td>@php echo $n++; @endphp</td>
 						<td>{{$list->name}}</td>
 						<td>{{$list->email}}</td>
-						<td>{{$list->address}}</td>
-						<td>{{$list->phone_number}}</td>
 						@if ($list['order'] == '')
 						<td>No Orders Yet</td>
 						@else

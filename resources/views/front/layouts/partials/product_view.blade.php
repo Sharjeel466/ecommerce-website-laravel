@@ -39,7 +39,7 @@
 										</div>
 										<input type="hidden" name="product_id" value="{{$product->id}}">
 										<div class="aa-prod-view-bottom">
-											@if (Session::has('user'))
+											@if (Auth::user())
 											<button class="aa-add-to-cart-btn" type="submit">Add To Cart</button>
 											@else
 											<button class="btn btn-lg" disabled="">Add To Cart</button>
