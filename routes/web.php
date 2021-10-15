@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('home'                                               , 'HomeController@index');
+// Route::get('home'                                               , 'HomeController@index');
 Auth::routes();
 
 Route::get('/'                                                  , 'FrontController@index');

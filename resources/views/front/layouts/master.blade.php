@@ -99,11 +99,16 @@ else{
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  {{-- <li class="hidden-xs"><a href="{{ url('cart') }}">My Cart</a></li> --}}
-                  {{-- <li class="hidden-xs"><a href="{{ url('checkout') }}">Checkout</a></li> --}}
                   @if (Auth::user())
                   <li>Welcome, <strong>{{Auth::user()->name}}</strong></li>
-                  <li><a href="{{ url('home') }}">|&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+                  <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">|&nbsp;&nbsp;&nbsp;&nbsp;{{ __('Logout') }}</a>
+                  </li>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
                   @else
                   <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                   <li><a href="" data-toggle="modal" data-target="#register-modal">Register</a></li>
@@ -133,7 +138,6 @@ else{
               </div>
               <!-- / logo  -->
 
-              {{-- @if (Session::has('user')) --}}
               <div class="aa-cartbox">
                 <a class="aa-cart-link" href="{{ url('cart') }}">
                   <span class="fa fa-shopping-basket"></span>
@@ -142,7 +146,6 @@ else{
                 </a>
                 
               </div>
-              {{-- @endif --}}
 
               <!-- search box -->
             {{-- <div class="aa-search-box">
@@ -288,14 +291,6 @@ else{
       <div class="modal-body" style="height: 303px;">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4>Login</h4>
-        {{-- <form class="aa-login-form" action="{{ url('login-user') }}" method="post">
-          @csrf
-          <label for="">Email address</label>
-          <input type="email" name="email" placeholder="Email" autocomplete="off" required>
-          <label for="">Password</label>
-          <input type="password" name="password" placeholder="Password" autocomplete="off" required>
-          <button class="aa-browse-btn" type="submit">Login</button>
-        </form> --}}
         <form method="POST" action="{{ route('login') }}">
           @csrf
           <div class="form-group  px-3">
@@ -364,21 +359,6 @@ else{
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4>Register</h4>
         <hr>
-        {{-- <form class="aa-login-form" action="{{ url('register-user') }}" method="post">
-          @csrf
-          <label for="">Username</label>
-          <input type="text" name="name" placeholder="Username" class="form-control" autocomplete="off" required>
-          <label for="">E-mail</label>
-          <input type="email" name="email" placeholder="E-mail" class="form-control" autocomplete="off" required>
-          <label for="">Password</label>
-          <input type="password" name="password" placeholder="Password" class="form-control" autocomplete="off" required>
-          <label for="">Phone Number</label>
-          <input type="text" name="number" placeholder="Phone Number" class="form-control" autocomplete="off" required>
-          <label for="">Address</label>
-          <input type="text" name="address" placeholder="Address" class="form-control" autocomplete="off" required>
-          <button class="aa-browse-btn" type="submit">Register</button>
-          <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-        </form> --}}
 
         <form method="POST" action="{{ route('register') }}">
           @csrf
