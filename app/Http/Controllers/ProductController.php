@@ -52,7 +52,7 @@ class ProductController extends Controller
 
             $product->name = $req->name;
             $product->price = $req->price;
-            $product->desc = $req->desc;
+            $product->description = $req->desc;
             $product->category_id = $req->category;
 
             if ($req->hasfile('image')) {
