@@ -64,17 +64,17 @@
                                     @endif --}}
                                 </div>
                             </div>
+                            <div>
+                                @if(session()->has('msg'))
+                                <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                                    {{session('msg')}}  
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div> 
+                                @endif
+                            </div>
                         </form>
-                        <div>
-                            @if(session()->has('msg'))
-                            <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
-                                {{session('msg')}}  
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div> 
-                            @endif
-                        </div>
                     </div>
                 </div>
             </div>

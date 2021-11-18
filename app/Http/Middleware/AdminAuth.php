@@ -18,7 +18,7 @@ class AdminAuth
     public function handle($request, Closure $next)
     {
         if (Auth::user()) {
-            if (Auth::user()->role->name == 'admin') {
+            if (Auth::user()->role->id == 1) {
 
             }
             else{
@@ -26,7 +26,7 @@ class AdminAuth
             }
         }
         else{
-            return redirect('admin')->with('msg', 'Access Denied !!!');
+            return redirect('login')->with('msg', 'Access Denied !!!');
         }
         return $next($request);
     }
