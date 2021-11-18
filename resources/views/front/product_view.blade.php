@@ -1,0 +1,79 @@
+@extends('layouts.front_layout')
+@section('container')
+<!-- product category -->
+<section id="aa-product-details">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="aa-product-details-area">
+					<div class="aa-product-details-content">
+						<div class="row">
+							<!-- Modal view slider -->
+							<div class="col-md-5 col-sm-5 col-xs-12">                              
+								<div class="aa-product-view-slider">                                
+									<div id="demo-1" class="simpleLens-gallery-container">
+										<div class="simpleLens-container">
+											<div class="simpleLens-big-image-container"><a data-lens-image="{{ asset('public/admin_assets/images/products/'.$product->image) }}" class="simpleLens-lens-image"><img src="{{ asset('public/admin_assets/images/products/'.$product->image) }}" class="simpleLens-big-image"></a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal view content -->
+							<div class="col-md-7 col-sm-7 col-xs-12">
+								<div class="aa-product-view-content">
+									<h3>{{$product->name}}</h3>
+									<div class="aa-price-block">
+										<span class="aa-product-view-price"><strong>Rs:</strong> {{$product->price}}/-</span>
+									</div>
+									<p><strong>Description</strong>: <span>{{$product->description}}</span></p>
+									<strong>Category</strong>: <span>{{$product->category->name}}</span>
+									
+									<form action="{{ url('add-to-cart/'.$product->id) }}" method="POST">
+										@csrf
+										<div class="aa-prod-quantity">
+											<select name="product_qty">
+												@for ($i = 1; $i <= 6; $i++)
+												<option value="{{$i}}">{{$i}}</option>
+												@endfor
+											</select>
+										</div>
+										<input type="hidden" name="product_id" value="{{$product->id}}">
+										<div class="aa-prod-view-bottom">
+											@if (Auth::user())
+											<button class="aa-add-to-cart-btn" type="submit">Add To Cart</button>
+											@else
+											<button class="btn btn-lg" disabled="">Add To Cart</button>
+											@endif
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Related product -->
+					<div class="aa-product-related-item">
+						<h3>Related Products</h3>
+						<ul class="aa-product-catg aa-related-item-slider">
+							<!-- start single product item -->
+							@foreach ($related_product as $list)
+							<li>
+								<figure>
+									<a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" alt="polo shirt img"></a>
+									<figcaption>
+										<h4 class="aa-product-title"><a href="#">{{$list->name}}</a></h4>
+										<span class="aa-product-price">Rs: {{$list->price}}/-</span>
+									</figcaption>
+								</figure>
+							</li>                                                                                
+							@endforeach
+						</ul>   
+					</div>  
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- / product category -->
+
+@endsection

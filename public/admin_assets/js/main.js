@@ -65,6 +65,8 @@ function manageCategory(id){
 $(document).ready(function() {
   $('#cat-form').submit(function(event) {
     event.preventDefault();
+    $('#exampleModal').modal('hide');
+    // $('#cat-form').reset();
 
     var name = $('input[name=name]').val();
     var _token = $('input[name=_token]').val();
@@ -77,7 +79,6 @@ $(document).ready(function() {
         _token   : _token
       },
       success:function(data){
-        console.log(data)
         fetchData();
       },
       error:function(a,b,c){

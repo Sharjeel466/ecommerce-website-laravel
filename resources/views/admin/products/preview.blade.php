@@ -1,4 +1,4 @@
-@extends('admin/layout')
+@extends('layouts.admin_layout')
 @section('page_title','Product Review')
 @section('product_review_select','active')
 @section('container')

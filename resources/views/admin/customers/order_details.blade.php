@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin_layout')
 
 @section('page_title','Customer')
 @section('page_select','Customer Details')
