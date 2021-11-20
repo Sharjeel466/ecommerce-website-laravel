@@ -1,8 +1,8 @@
 @extends('layouts.admin_layout')
 
-@section('page_title','Customer')
-@section('page_select','Customer Details')
-@section('customer_select','active')
+@section('page_title','User')
+@section('page_select','User Details')
+@section('user_select','active')
 @section('container')
 
 <div class="row my-2">

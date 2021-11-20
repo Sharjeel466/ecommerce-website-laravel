@@ -1,45 +1,55 @@
-function deleteCategory(id){
+$.ajaxSetup({
+ headers: {
+   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+ }
+});
 
-  $.ajax({
-    url: 'delete-category',
-    type: 'post',
-    data: {
-      id       : id,
-      _token   : '{{csrf_token()}}'
-    },
-    success:function(data){
-      // console.log(data)
-    },
-    error:function(a,b,c){
-      console.log(b)
-    }
-  });
+// function deleteCategory(id){
 
-}
+//   $.ajax({
+//     url: 'delete-category',
+//     type: 'post',
+//     data: {
+//       id       : id,
+//     },
+//     success:function(data){
+//       // console.log(data)
+//     },
+//     error:function(a,b,c){
+//       console.log(b)
+//     }
+//   });
+//   // fetchData();
+
+// }
 
 $(document).ready(function() {
+
   $("#cat-update-form").submit(function(event){
     event.preventDefault();
 
+    $('#update-model').modal('hide');
+
     var id = $('#cat_id').val();
     var name = $('input[name=update_name]').val();
-    var _token = $('input[name=_token]').val();
 
     $.ajax({
       url: 'update-category',
       type: 'post',
       data: {
         id       : id,
-        name     : name,
-        _token   : _token
+        name     : name
       },
       success:function(data){
-        console.log(data)
+        // console.log(data)
+        fetchData();
       },
       error:function(a,b,c){
         console.log(b)
       }
     });
+
+    $(this).trigger("reset");
 
   });
 });
@@ -62,41 +72,13 @@ function manageCategory(id){
   // console.log(id)
 }
 
-$(document).ready(function() {
-  $('#cat-form').submit(function(event) {
-    event.preventDefault();
-    $('#exampleModal').modal('hide');
-    // $('#cat-form').reset();
+function fetchData() {
 
-    var name = $('input[name=name]').val();
-    var _token = $('input[name=_token]').val();
-
-    $.ajax({
-      url: 'manage-category',
-      type: 'post',
-      data: {
-        name     : name,
-        _token   : _token
-      },
-      success:function(data){
-        fetchData();
-      },
-      error:function(a,b,c){
-        console.log(b)
-      }
-    });
-
-  })
-
-  fetchData();
-
-  function fetchData() {
-
-    $.ajax({
-      url: 'fetch-category',
-      type: 'get',
-      dataType: 'json',
-      success:function(data){
+  $.ajax({
+    url: 'fetch-category',
+    type: 'get',
+    dataType: 'json',
+    success:function(data){
         // console.log(data)
         $('#category_data').html('');
         var n = 1;
@@ -104,9 +86,8 @@ $(document).ready(function() {
           $('#category_data').append('<tr>'+
             '<td>'+n+++'</td>'+            
             '<td>'+val.name+'</td>'+
-            '<td><button type="button" onclick="manageCategory('+val.id+');" class="btn btn-success">Edit</button></td>'+            
-            '<td>'+
-            '<button type="button" onclick="deleteCategory('+val.id+');" class="btn btn-danger">Delete</button></td>'+            
+            '<td><button type="button" onclick="manageCategory('+val.id+');" class="btn btn-success">Edit</button></td>'+
+            // '<td><button type="button" onclick="deleteCategory('+val.id+');" class="btn btn-danger">Delete</button></td>'+
             '</tr>');
         });
       },
@@ -115,7 +96,33 @@ $(document).ready(function() {
       }
     });
 
-  }
+}
+
+$(document).ready(function() {
+  $('#cat-form').submit(function(event) {
+    event.preventDefault();
+    $('#add_category').modal('hide');
+
+    var name = $('input[name=name]').val();
+
+    $.ajax({
+      url: 'manage-category',
+      type: 'post',
+      data: {
+        name     : name
+      },
+      success:function(data){
+        fetchData();
+      },
+      error:function(a,b,c){
+        console.log(b)
+      }
+    });
+    $(this).trigger("reset");
+
+  })
+
+  fetchData();
 
 });
 

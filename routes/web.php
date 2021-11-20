@@ -33,16 +33,18 @@ Route::prefix('admin')->group(function(){
             Route::get('fetch-category/{id?}'                       , 'CategoryController@fetchCategory');
             Route::post('manage-category'                           , 'CategoryController@manageCategory');
             Route::post('update-category'                           , 'CategoryController@updateCategory');
-            Route::post('delete-category'                           , 'CategoryController@deleteCategory');
+            // Route::post('delete-category'                           , 'CategoryController@deleteCategory');
 
             Route::get('product'                                    , 'ProductController@index');
-            Route::match(['get', 'post'], 'product-manage/{id?}'    , 'ProductController@productManage');
-            Route::get('product-delete/{id}'                        , 'ProductController@productDelete');
+            Route::get('product-create'                             , 'ProductController@create');
+            Route::post('product-store'                             , 'ProductController@store');
+            Route::get('product-edit/{product_id}'                  , 'ProductController@edit');
+            Route::post('product-update'                            , 'ProductController@update');
+            Route::get('product-delete/{id}'                        , 'ProductController@delete');
 
-            Route::get('customer'                                   , 'CustomerController@index');
-
-            Route::get('customer-detail/{customer_id}'              , 'CustomerController@customerDetail');
-            Route::get('order-detail/{order_id}'                    , 'CustomerController@orderDetail');
+            Route::get('user'                                       , 'UserController@index');
+            Route::get('user-detail/{user_id}'                      , 'UserController@userDetail');
+            Route::get('order-detail/{order_id}'                    , 'UserController@orderDetail');
 
         });
     });

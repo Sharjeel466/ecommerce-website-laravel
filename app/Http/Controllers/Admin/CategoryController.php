@@ -33,19 +33,14 @@ class CategoryController extends Controller
     public function manageCategory(Request $req)
     {
         $req->validate([
-            'name' => 'unique:categories'
+            'name' => 'required|unique:categories'
         ]);
-        // if ($req->ajax()) {
-            // $data = $req->all();
+
         $category = new Category;
         $category->name = $req->name;
-        $category->save(); 
+        $category->save();
+
         return response()->json($category); 
-        // }
-        // else{
-        //     return 'else';
-        // }
-        // return view('admin.categories.list');
     }
 
     public function updateCategory(Request $req)
@@ -57,12 +52,12 @@ class CategoryController extends Controller
         return response()->json($category); 
     }
 
-    public function deleteCategory(Request $req)
-    {
-        $data = $req->all();
-        $category = Category::find($data['id']);
-        $category->delete();
-        return response()->json($category);
-    }
+    // public function deleteCategory(Request $req)
+    // {
+    //     $data = $req->all();
+    //     $category = Category::find($data['id']);
+    //     $category->delete();
+    //     // return response()->json($category);
+    // }
 
 }

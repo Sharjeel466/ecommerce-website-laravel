@@ -5,7 +5,6 @@
     <h1 class="mb10">Product Review</h1>
     <div class="row m-t-30">
         <div class="col-md-12">
-            <!-- DATA TABLE-->
             <div class="table-responsive m-b-40">
                 <table class="table table-borderless table-data3">
                     <thead>
@@ -40,7 +39,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- END DATA TABLE-->
         </div>
     </div>
                         

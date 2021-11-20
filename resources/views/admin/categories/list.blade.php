@@ -5,7 +5,7 @@
 @section('category_select','active')
 @section('container')
 
-<button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#add_category">
 	Add Category
 </button>
 
@@ -17,7 +17,7 @@
 					<tr>
 						<th>#</th>
 						<th>Name</th>
-						<th colspan="2">Action</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody id="category_data">
