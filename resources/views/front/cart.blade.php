@@ -1,11 +1,11 @@
 @extends('layouts.front_layout')
 @section('container')
 @php
-use App\Http\Controllers\FrontController;
+use App\Http\Controllers\Front\CartController;
 
 if (Auth::user()) {
-  $cart_items = FrontController::showUserCart(); 
-  $cart = FrontController::cart();
+  $cart_items = CartController::showUserCart(); 
+  $cart = CartController::cart();
 }
 @endphp
 

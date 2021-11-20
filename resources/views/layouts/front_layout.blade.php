@@ -1,9 +1,9 @@
 @php
-use App\Http\Controllers\Front\FrontController;
+use App\Http\Controllers\Front\CartController;
 
 if (Auth::user()) {
-  $cart_item = FrontController::showUserCart(); 
-  $cart = FrontController::cart();
+  $cart_item = CartController::showUserCart(); 
+  $cart = CartController::cart();
 }
 else{
   $cart_item = 0;
@@ -40,6 +40,7 @@ else{
 
 </head>
 <body class="productPage">
+
   <!-- wpf loader Two -->
   <div id="wpf-loader-two">          
     <div class="wpf-loader-two-inner">
@@ -137,15 +138,15 @@ else{
                 </a>
               </div>
               <!-- / logo  -->
-
+              @if (Auth::user())
               <div class="aa-cartbox">
                 <a class="aa-cart-link" href="{{ url('cart') }}">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
                   <span class="aa-cart-notify">{{$cart_item}}</span>
                 </a>
-                
               </div>
+              @endif
 
               <!-- search box -->
             {{-- <div class="aa-search-box">
@@ -163,6 +164,7 @@ else{
   <!-- / header bottom  -->
 </header>
 <!-- / header section -->
+
 <!-- menu -->
 <section id="menu">
   <div class="container">

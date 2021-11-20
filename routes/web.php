@@ -8,13 +8,19 @@ Route::namespace('Front')->group(function(){
 
     Route::get('/'                                                  , 'FrontController@index');
     Route::get('product-details/{product_id}'                       , 'FrontController@productDetails');
-    Route::post('add-to-cart/{product_id}'                          , 'FrontController@addToCart');
-    Route::post('cart-remove'                                       , 'FrontController@cartRemove');
-    Route::match(['get', 'post'],'checkout/'                        , 'FrontController@checkout')->name('checkout');
-    Route::get('cart'                                               , 'FrontController@cartDetails');
-    Route::post('update-cart/{product_id}'                          , 'FrontController@updateCart');
+
+    Route::middleware('cart')->group( function(){
+
+        Route::get('cart'                                               , 'CartController@cartDetails');
+        Route::post('add-to-cart/{product_id}'                          , 'CartController@addToCart');
+        Route::post('update-cart/{product_id}'                          , 'CartController@updateCart');
+        Route::post('cart-remove'                                       , 'CartController@cartRemove');
+        Route::match(['get', 'post'],'checkout/'                        , 'CartController@checkout')->name('checkout');
+        Route::get('thankyou'                                           , 'CartController@thankyou');
+        
+    });
+
     Route::get('product_list/{category_id?}'                        , 'FrontController@productList');
-    Route::get('thankyou'                                           , 'FrontController@thankyou');
     Route::get('category/{category_id}'                             , 'FrontController@category');
 
 });
