@@ -17,7 +17,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'name' => $faker->name,
         'price' => $faker->numberBetween($min = 1500, $max = 6000),
         'description' => $faker->paragraph,
-        'image' => 'a.jpg',
         'category_id' => Category::all()->random()->id,
     ];
 });

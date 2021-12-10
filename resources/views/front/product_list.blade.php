@@ -23,9 +23,17 @@
       <div class="col-md-3" style="margin-top: 50px;">
         <li>
           @if (Auth::user())
-          <a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}"></a>
+          @if ($list->image == null)
+          <a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('public/no-image.png') }}"></a>
           @else
-          <a class="aa-product-img"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}"></a>
+          <a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('storage/app/products/'.$list->image) }}"></a>
+          @endif
+          @else
+          @if ($list->image == null)
+          <a class="aa-product-img"><img width="240px" height="300px" src="{{ asset('public/no-image.png') }}"></a>
+          @else
+          <a class="aa-product-img"><img width="240px" height="300px" src="{{ asset('storage/app/products/'.$list->image) }}"></a>
+          @endif
           @endif
           <figcaption>
             <h4 class="aa-product-title"><h3>{{$list->name}}</h3></h4>
@@ -36,7 +44,7 @@
       </div>
       @endforeach
       @else
-      <div class="col-md-3">
+      <div class="col-md-4" style="margin-top: 50px;">
         No Products From This Category.
       </div>
       @endif

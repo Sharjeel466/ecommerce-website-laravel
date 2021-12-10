@@ -33,7 +33,7 @@ class ProductController extends Controller
 
             $image = $req->file('image');
             $image_name = $image->getClientOriginalName();
-            $req->file('image')->storeAs('/public/category',$image_name);
+            $req->file('image')->storeAs('products', $image_name);
         }
 
         Product::create([
@@ -63,14 +63,14 @@ class ProductController extends Controller
 
         if ($req->hasFile('image')) {
 
-            $arrImage = Product::where(['id' => $req->post('id')])->first();
-            if(Storage::exists('/public/category'.$arrImage->image)){
-                Storage::delete('/public/category'.$arrImage->image);
-            }
-
+            // $arrImage = Product::where(['id' => $req->post('id')])->first();
+            // if(Storage::exists('products/'.$arrImage->image)){
+            // // dd($arrImage->image);
+            //     Storage::delete('products/'.$arrImage->image);
+            // }
             $image = $req->file('image');
             $image_name = $image->getClientOriginalName();
-            $req->file('image')->storeAs('/public/category',$image_name);
+            $req->file('image')->storeAs('products',$image_name);
         }
 
         $product = Product::find($req->id);

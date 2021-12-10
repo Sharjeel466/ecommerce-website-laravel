@@ -18,7 +18,11 @@
 					@foreach ($product as $list)
 					<li>
 						<div class="seq-model">
-							<img data-seq src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" alt="Men slide img" />
+							@if ($list->image == null)
+							<img data-seq src="{{ asset('public/no-image.png') }}" alt="Men slide img" />
+							@else
+							<img data-seq src="{{ asset('storage/app/products/'.$list->image) }}" alt="Men slide img" />
+							@endif
 						</div>
 						<div class="seq-title">                
 							<h2 data-seq>{{$list->name}}</h2>                
@@ -43,7 +47,11 @@
 				@foreach ($product as $list)
 				<li style="margin-top: 50px;">
 					<figure>
-						<a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('public/admin_assets/images/products/'.$list->image) }}" alt="polo shirt img"></a>
+						@if ($list->image == null)
+						<a class="aa-product-img" href="javascript:void(0)"><img width="240px" height="300px" src="{{ asset('public/no-image.png') }}" alt="polo shirt img"></a>
+						@else
+						<a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('storage/app/products/'.$list->image) }}" alt="polo shirt img"></a>
+						@endif
 						<figcaption>
 							<h4 class="aa-product-title">{{$list->name}}</h4>
 							<span class="aa-product-price">Rs : {{$list->price}}/-</span>

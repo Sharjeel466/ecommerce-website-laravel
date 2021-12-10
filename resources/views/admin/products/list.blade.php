@@ -40,7 +40,12 @@
 					<tr>
 						<td>@php echo $n++; @endphp</td>
 						<td>{{$list->name}}</td>
-						<td><img style="width: 50px; height: 50px" class="img-fluid" src="{{asset('public/storage/category/'.$list->image)}}"/></td>
+						{{-- {{dd($list)}} --}}
+						@if ($list->image == null)
+						<td><img style="width: 50px; height: 50px" class="img-fluid" src="{{asset('public/no-image.png')}}"/></td>
+						@else
+						<td><img style="width: 50px; height: 50px" class="img-fluid" src="{{asset('storage/app/products/'.$list->image)}}"/></td>
+						@endif
 						<td>
 							<a href="{{url('admin/product-edit')}}/{{$list->id}}"><button type="button" class="btn btn-success btn-sm">Edit</button></a>
 

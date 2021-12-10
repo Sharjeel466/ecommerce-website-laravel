@@ -47,7 +47,7 @@
                            <label class="control-label mb-1"> Image</label>
                            <input name="image" type="file" class="form-control" required>
                            @if(@$product['image']!='')
-                           <a href="{{asset('public/admin_assets/images/products/'.@$product['image'])}}" target="_blank"><img width="100px" src="{{asset('public/storage/category/'.@$product['image'])}}"/></a>
+                           <a href="{{asset('storage/app/products/'.@$product['image'])}}" target="_blank"><img width="100px" src="{{asset('storage/app/products/'.@$product['image'])}}"/></a>
                            @endif
                         </div>
                         <div class="form-group">
