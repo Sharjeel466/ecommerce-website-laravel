@@ -407,7 +407,7 @@ img {
 
 #aa-header .aa-header-bottom .aa-header-bottom-area .aa-search-box {
   float: right;
-  margin-right: 5%;
+  margin-right: 10%;
   margin-top: 13px;
   position: relative;
   width: 500px;
@@ -424,7 +424,7 @@ img {
 #aa-header .aa-header-bottom .aa-header-bottom-area .aa-search-box button {
   border: medium none;
   color: #fff;
-  height: 100%;
+  height: 40px;
   position: absolute;
   right: 0;
   top: 0;
@@ -1183,6 +1183,14 @@ img {
     letter-spacing: 0.5px;
     font-size: 16px;
   }
+
+.aa-product-price {
+    color: #ff6666;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+  }
+
   .aa-product-catg li .aa-product-price del {
     margin-left: 5px;
   }
@@ -1972,9 +1980,23 @@ img {
   padding: 10px 15px;
   width: 100%;
 }
+
+.aa-product-catg-head {
+  background-color: #f3f3f3;
+  display: inline;
+  float: left;
+  padding: 10px 15px;
+  width: 100%;
+}
+
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-left {
   float: left;
 }
+
+.aa-product-catg-head-left {
+  float: left;
+}
+
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-left label {
   margin-bottom: 0;
   margin-right: 10px;
@@ -1983,6 +2005,11 @@ img {
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-left .aa-sort-form {
   float: left;
 }
+
+.aa-sort-form {
+  float: left;
+}
+
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-left .aa-sort-form select {
   border: 1px solid #ccc;
   text-align: center;
@@ -1995,6 +2022,12 @@ img {
   float: left;
   margin-left: 25px;
 }
+
+.aa-show-form {
+  float: left;
+  margin-left: 25px;
+}
+
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-left .aa-show-form select {
   border: 1px solid #ccc;
   text-align: center;
@@ -2006,6 +2039,11 @@ img {
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-right {
   float: right;
 }
+
+.aa-product-catg-head-right {
+  float: right;
+}
+
 #aa-product-category .aa-product-catg-content .aa-product-catg-head .aa-product-catg-head-right a {
   color: #555;
   display: inline-block;
@@ -4297,4 +4335,23 @@ img {
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+#search_result{
+  width: 100%;
+  position: absolute;
+  background-color: white;
+  z-index: 999;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+#search_result a li{
+  padding: 2px 7px;
+}
+
+#search_result a li:hover{
+  background-color: whitesmoke;
+  font-weight: normal;
+  cursor: pointer;
 }

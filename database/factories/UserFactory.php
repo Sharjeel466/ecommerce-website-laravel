@@ -18,12 +18,12 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Role::class, function (Faker $faker) {
-    return [
-        'name' => $faker->userName,
-        'description' => $faker->text
-    ];
-});
+// $factory->define(Role::class, function (Faker $faker) {
+//     return [
+//         'name' => $faker->userName,
+//         'description' => $faker->text
+//     ];
+// });
 
 $factory->define(User::class, function (Faker $faker) {
     return [

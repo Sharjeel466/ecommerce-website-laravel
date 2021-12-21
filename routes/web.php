@@ -7,7 +7,7 @@ Auth::routes();
 Route::namespace('Front')->group(function(){
 
     Route::get('/'                                                  , 'FrontController@index');
-    Route::get('product-details/{product_id}'                       , 'FrontController@productDetails');
+    Route::get('product-details/{category_name}/{product_id}'                       , 'FrontController@productDetails');
 
     Route::middleware('cart')->group( function(){
 
@@ -20,8 +20,12 @@ Route::namespace('Front')->group(function(){
         
     });
 
-    Route::get('product_list/{category_id?}'                        , 'FrontController@productList');
-    Route::get('category/{category_id}'                             , 'FrontController@category');
+    Route::get('product_list/{category_name?}/{category_id?}'                        , 'FrontController@productList');
+
+    Route::view('blog', 'front.blog');
+    Route::view('contact', 'front.contact');
+
+    Route::get('product_search'                                     , 'FrontController@productSearch');
 
 });
 

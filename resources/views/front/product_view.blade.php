@@ -27,12 +27,12 @@
 							<!-- Modal view content -->
 							<div class="col-md-7 col-sm-7 col-xs-12">
 								<div class="aa-product-view-content">
-									<h3>{{$product->name}}</h3>
+									<h3><strong>{{$product->name}}</strong></h3>
 									<div class="aa-price-block">
 										<span class="aa-product-view-price"><strong>Rs:</strong> {{$product->price}}/-</span>
 									</div>
 									<p><strong>Description</strong>: <span>{{$product->description}}</span></p>
-									<strong>Category</strong>: <span>{{$product->category->name}}</span>
+									<strong>Category</strong>: <u><a href="{{ url('product_list/'.$product->category_id) }}">{{$product->category->name}}</a></u>
 									
 									<form action="{{ url('add-to-cart/'.$product->id) }}" method="POST">
 										@csrf
@@ -69,7 +69,7 @@
 									<a class="aa-product-img" href="javascript:void(0)"><img width="240px" height="300px" src="{{ asset('public/no-image.png') }}" alt="polo shirt img">
 									</a>
 									@else
-									<a class="aa-product-img" href="{{ url('product-details/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('storage/app/products/'.$list->image) }}" alt="polo shirt img">
+									<a class="aa-product-img" href="{{ url('product-details/'.$list->name.'/'.$list->id) }}"><img width="240px" height="300px" src="{{ asset('storage/app/products/'.$list->image) }}" alt="polo shirt img">
 									</a>
 									@endif
 									<figcaption>

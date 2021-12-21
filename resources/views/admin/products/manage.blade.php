@@ -53,7 +53,7 @@
                         <div class="form-group">
                            <label class="control-label mb-1"> Category</label>
                            <select name="category_id" class="form-control" required>
-                              <option value="">Select Categories</option>
+                              {{-- <option value="">Select Categories</option> --}}
                               @foreach($category as $list)
                               @if (@$product['category_id'] == $list->id)
                               <option selected value="{{$list->id}}">

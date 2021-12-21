@@ -47,7 +47,7 @@ if (Auth::user()) {
                       <input type="hidden" name="product_id" value="{{$list['product_id']}}">
                       <td><input type="submit" value="remove" class="btn btn-sm btn-danger"></td>
                     </form>
-                    <td><img src="{{ asset('public/admin_assets/images/products/'.$list['product']['image']) }}" alt="img"></td>
+                    <td><img src="{{ asset('storage/app/products/'.$list['product']['image']) }}" alt="img"></td>
                     <td>{{$list['product']['name']}}</td>
                     <td>Rs: <span id="product-price-{{$list['product_id']}}">{{$list['product']['price']}}</span>/-</td>
                     {{-- <td id="product-quantity-{{$list['product_id']}}">{{$list['product_qty']}}</td> --}}
