@@ -63,7 +63,7 @@ else{
               <!-- start header top left -->
               <div class="aa-header-top-left">
                 <!-- start language -->
-                <div class="aa-language">
+                {{-- <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       <img src="{{ asset('public/front_assets/img/flag/english.jpg') }}" alt="english flag">ENGLISH
@@ -74,11 +74,11 @@ else{
                       <li><a href="{{ url('lang/en') }}"><img src="{{ asset('public/front_assets/img/flag/english.jpg') }}" alt="">ENGLISH</a></li>
                     </ul>
                   </div>
-                </div>
+                </div> --}}
                 <!-- / language -->
 
                 <!-- start currency -->
-                <div class="aa-currency">
+                {{-- <div class="aa-currency">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       <i class="fa fa-usd"></i>USD
@@ -89,7 +89,7 @@ else{
                       <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
                     </ul>
                   </div>
-                </div>
+                </div> --}}
                 <!-- / currency -->
                 <!-- start cellphone -->
                 {{-- <div class="cellphone hidden-xs">
@@ -101,7 +101,7 @@ else{
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
                   @if (Auth::user())
-                  <li><a href="{{ url('my-account') }}">My Account</a></li>
+                  {{-- <li><a href="{{ url('my-account') }}">My Account</a></li> --}}
                   <li>Welcome, <strong>{{Auth::user()->name}}</strong></li>
                   <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"

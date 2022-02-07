@@ -48,7 +48,7 @@
 											@if (Auth::user())
 											<button class="aa-add-to-cart-btn" type="submit">Add To Cart</button>
 											@else
-											<button class="btn btn-lg" disabled="">Add To Cart</button>
+											<a href="javascript:void(0)" class="aa-add-to-cart-btn" data-toggle="modal" data-target="#login-modal">Login to Purchase Product</a>
 											@endif
 										</div>
 									</form>

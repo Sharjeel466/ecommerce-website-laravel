@@ -72,4 +72,9 @@ class FrontController extends Controller
         }
     }
 
+    public function exchangeCurrency(Request $req)
+    {
+        // code...
+    }
+
 }
